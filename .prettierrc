@@ -1,4 +1,13 @@
 {
   "singleQuote": true,
-  "trailingComma": "es5"
+  "trailingComma": "none",
+  "semi": false,
+  "overrides": [
+    {
+      "files": "*.ts",
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
 }

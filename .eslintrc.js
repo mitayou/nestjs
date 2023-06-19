@@ -16,8 +16,8 @@ module.exports = {
     node: true,
     jest: true,
   },
-  norePatterns: ['.eslintrc.js'],
-  ignorePatterns: ["node_modules/", "dist/"],
+  // norePatterns: [],
+  ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js"],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -34,8 +34,9 @@ module.exports = {
             "trailingComma": "none",
             "semi": false
           }
-        ]
+        ],
+        "@typescript-eslint/ban-types": 0
       }
     }
   ]
-};
+}
