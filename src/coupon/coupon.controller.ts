@@ -11,18 +11,20 @@ import { Repository } from 'typeorm'
 import { plainToClass } from 'class-transformer'
 import { validate } from 'class-validator'
 import { Coupon } from './coupon.entity'
+import { CouponRepository } from './coupon.repository'
 
-@Controller('coupon')
+@Controller('api/coupon')
 export class CouponController {
   constructor(
-    @InjectRepository(Coupon)
-    private readonly couponRepository: Repository<Coupon>
-  ) {}
+    private couponRepository: CouponRepository
+  ) {
+  }
   @Get('/getCouponList')
-  getCoupons() {
+  async getCoupons() {
+    const res = await this.couponRepository.findByCode('123')
     return {
       code: 0,
-      data: ['1', '2', '3'],
+      data: res,
       msg: 'success'
     }
   }
@@ -36,8 +38,7 @@ export class CouponController {
     //     HttpStatus.BAD_REQUEST,
     //   );
     // }
-
-    const newCoupon = await this.couponRepository.create(couponDto)
-    return this.couponRepository.save(newCoupon)
+    const res = await this.couponRepository.findByCode('45678912')
+    return res
   }
 }

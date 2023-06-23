@@ -35,7 +35,9 @@ module.exports = {
             "semi": false
           }
         ],
-        "@typescript-eslint/ban-types": 0
+        "@typescript-eslint/ban-types": 0,
+        "no-trailing-spaces": 0,
+        "object-curly-spacing": ["always"]
       }
     }
   ]

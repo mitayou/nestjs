@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { IsNotEmpty, IsString, Length } from 'class-validator'
 
-@Entity()
+@Entity('coupon')
 export class Coupon {
   /** 自增主键 */
   @PrimaryGeneratedColumn()
