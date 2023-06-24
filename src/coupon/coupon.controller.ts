@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Post
-} from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { plainToClass } from 'class-transformer'
@@ -15,10 +8,7 @@ import { CouponRepository } from './coupon.repository'
 
 @Controller('api/coupon')
 export class CouponController {
-  constructor(
-    private couponRepository: CouponRepository
-  ) {
-  }
+  constructor(private couponRepository: CouponRepository) {}
   @Get('/getCouponList')
   async getCoupons() {
     const res = await this.couponRepository.findByCode('123')

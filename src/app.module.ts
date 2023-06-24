@@ -14,19 +14,16 @@ console.log('执行环境', NODE_ENV)
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(
-        __dirname,
-        `../env/.env.${NODE_ENV}`,
-      )
+      envFilePath: join(__dirname, `../env/.env.${NODE_ENV}`)
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useClass: TypeOrmDefaultConfigService,
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     CouponModule
   ],
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule { }
+export class AppModule {}

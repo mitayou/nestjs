@@ -13,10 +13,7 @@ export class ValidationPipe implements PipeTransform {
     const object = plainToClass(metatype, value)
     const errors = await validate(object)
     if (errors.length > 0) {
-      throw new HttpException(
-        { message: '参数校验失败', errors: errors },
-        HttpStatus.BAD_REQUEST
-      )
+      throw new HttpException({ message: '参数校验失败', errors: errors }, HttpStatus.BAD_REQUEST)
     }
     return object
   }

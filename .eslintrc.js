@@ -22,7 +22,10 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    // 不允许使用混合空格和制表符进行缩进
+    'no-mixed-spaces-and-tabs': 2,
+    'template-curly-spacing': [2, 'never']
   },
   overrides: [
     {
@@ -36,8 +39,7 @@ module.exports = {
           }
         ],
         "@typescript-eslint/ban-types": 0,
-        "no-trailing-spaces": 0,
-        "object-curly-spacing": ["always"]
+        "no-trailing-spaces": 0
       }
     }
   ]

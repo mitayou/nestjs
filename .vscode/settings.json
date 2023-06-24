@@ -5,6 +5,8 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
