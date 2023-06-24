@@ -20,13 +20,13 @@ export class CouponController {
   }
   @Post('/createCoupon')
   async createCoupon(@Body() couponDto: Coupon): Promise<Coupon> {
-    // const coupon = plainToClass(Coupon, couponDto);
-    // const errors = await validate(coupon);
+    // const coupon = plainToClass(Coupon, couponDto)
+    // const errors = await validate(coupon)
     // if (errors.length > 0) {
     //   throw new HttpException(
     //     { message: '参数校验失败', errors: errors },
     //     HttpStatus.BAD_REQUEST,
-    //   );
+    //   )
     // }
     const res = await this.couponRepository.findByCode('45678912')
     return res
