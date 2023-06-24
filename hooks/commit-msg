@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Get the commit message from the file
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=`cat $COMMIT_MSG_FILE`
+
+# Check if the commit message starts with "feat:" or "fix:"
+if [[ $COMMIT_MSG =~ ^feat:.*$ ]]
+then
+  PREFIX="🚀 增加了新功能"
+  TYPE="feat"
+elif [[ $COMMIT_MSG =~ ^fix:.*$ ]]
+then
+  PREFIX="🐛 修复了Bug"
+  TYPE="fix"
+else
+  PREFIX="📝 文档更新"
+  TYPE="docs"
+fi
+
+# Get the current branch name
+BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+
+# Get the current date and time
+DATE=`date "+%Y-%m-%d"`
+TIME=`date "+%H:%M:%S"`
+
+# Get the number of files changed and lines added/deleted
+FILES_CHANGED=`git diff --numstat HEAD~ | wc -l | tr -d '[:space:]'`
+LINES_ADDED=`git diff --numstat HEAD~ | awk '{s+=$1} END {print s}'`
+LINES_DELETED=`git diff --numstat HEAD~ | awk '{s+=$2} END {print s}'`
+
+# Create the commit message with all the information
+FINAL_MSG="$PREFIX\n\n$type($BRANCH_NAME): $COMMIT_MSG\n\nFiles changed: $FILES_CHANGED\nLines added: $LINES_ADDED\nLines deleted: $LINES_DELETED\n\nDate: $DATE $TIME"
+
+# Overwrite the commit message file with the final message
+echo "$FINAL_MSG" > $COMMIT_MSG_FILE
