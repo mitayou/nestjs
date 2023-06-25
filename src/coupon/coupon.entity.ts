@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import { IsNotEmpty, IsString, Length } from 'class-validator'
+import { v4 as uuidv4 } from 'uuid'
 
 @Entity('coupon')
 export class Coupon {
@@ -7,8 +8,15 @@ export class Coupon {
   @PrimaryGeneratedColumn()
   id: number
 
+  /** 券ID */
+  @Column({ length: 20, unique: true, comment: '卡券Id, 唯一键' })
+  @IsNotEmpty()
+  @IsString()
+  // 自动生成唯一的 UUID
+  codeId: string = uuidv4().replace(/-/g, '').substring(0, 16)
+
   /** 券码 */
-  @Column({ length: 20, unique: true, comment: '卡券券码' })
+  @Column({ length: 20, comment: '卡券券码' })
   @IsNotEmpty()
   @IsString()
   code: string
