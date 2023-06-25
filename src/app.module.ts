@@ -7,6 +7,7 @@ import { TypeOrmDefaultConfigService } from '@/common/providers/typeorm.config.s
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CouponModule } from './coupon/coupon.module'
+import { AuthModule } from './auth/auth.module'
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 console.log('执行环境', NODE_ENV)
@@ -21,7 +22,8 @@ console.log('执行环境', NODE_ENV)
       useClass: TypeOrmDefaultConfigService,
       inject: [ConfigService]
     }),
-    CouponModule
+    CouponModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]
