@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { TypeOrmDefaultConfigService } from '@/common/providers/typeorm.config.service'
+import { TypeOrmDefaultConfigService } from './common/providers/typeorm.config.service'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CouponModule } from './coupon/coupon.module'
@@ -15,7 +15,8 @@ console.log('执行环境', NODE_ENV)
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(__dirname, `../env/.env.${NODE_ENV}`)
+      envFilePath: join(__dirname, `../env/.env.${NODE_ENV}`),
+      isGlobal: true
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
