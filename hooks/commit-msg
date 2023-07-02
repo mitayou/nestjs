@@ -31,7 +31,7 @@ LINES_ADDED=`git diff --numstat HEAD~ | awk '{s+=$1} END {print s}'`
 LINES_DELETED=`git diff --numstat HEAD~ | awk '{s+=$2} END {print s}'`
 
 # Create the commit message with all the information
-FINAL_MSG="$PREFIX\n\n$type($BRANCH_NAME): $COMMIT_MSG\n\nFiles changed: $FILES_CHANGED\nLines added: $LINES_ADDED\nLines deleted: $LINES_DELETED\n\nDate: $DATE $TIME"
+FINAL_MSG="$PREFIX\n\n$type($BRANCH_NAME): $COMMIT_MSG\n\n修改文件: $FILES_CHANGED\n行数增加: $LINES_ADDED\n行数删除: $LINES_DELETED\n\n日期: $DATE $TIME"
 
 # Overwrite the commit message file with the final message
 echo "$FINAL_MSG" > $COMMIT_MSG_FILE
