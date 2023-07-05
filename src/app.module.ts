@@ -10,12 +10,13 @@ import { CouponModule } from './coupon/coupon.module'
 import { AuthModule } from './auth/auth.module'
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
-console.log('执行环境', NODE_ENV)
+const envFilePath = join(__dirname, `../env/.env.${NODE_ENV}`)
+console.log('执行环境', NODE_ENV, '环境配置文件', envFilePath)
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(__dirname, `../env/.env.${NODE_ENV}`),
+      envFilePath,
       isGlobal: true
     }),
     TypeOrmModule.forRootAsync({

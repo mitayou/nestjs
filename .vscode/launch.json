@@ -2,12 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug NestJS Application",
+      "name": "调试NestJS程序",
       "type": "node",
       "request": "launch",
-      "args": [
-        "${workspaceRoot}/src/main.ts"
-      ],
+      "args": ["${workspaceRoot}/src/main.ts"],
       // "runtimeArgs": [
       //   "--nolazy",
       //   "-r",
@@ -30,7 +28,26 @@
       "protocol": "inspector",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "restart": true,
+      "restart": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest 测试调试",
+      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
+      // "args": ["--coverage"],
+      // "args": [
+      //   "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+      // ],
+      "args": [
+        // "cross-env NODE_ENV=test",
+        "--config",
+        "jest.config.ts",
+        "--runInBand"
+        // "NODE_ENV=development"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
     }
   ]
 }
