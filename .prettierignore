@@ -1,0 +1,5 @@
+# Ignore everything:
+# Except dist
+node_modules/
+vendor/
+dist/
