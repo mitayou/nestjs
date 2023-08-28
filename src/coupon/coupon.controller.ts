@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UseFilters, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, UseFilters, UseGuards } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { plainToClass } from 'class-transformer'
@@ -14,8 +14,9 @@ export class CouponController {
   constructor(private couponRepository: CouponRepository) {}
   @Get('/getCouponList')
   @UseGuards(JwtAuthGuard)
-  async getCoupons() {
-    const res = await this.couponRepository.findByCode('123')
+  async getCoupons(@Req() request) {
+    const userId = request.user.userId
+    const res = await this.couponRepository.findByUserId(userId)
     return {
       code: 0,
       data: res,
@@ -23,16 +24,19 @@ export class CouponController {
     }
   }
   @Post('/createCoupon')
-  async createCoupon(@Body() couponDto: Coupon): Promise<Coupon> {
-    // const coupon = plainToClass(Coupon, couponDto)
-    // const errors = await validate(coupon)
-    // if (errors.length > 0) {
-    //   throw new HttpException(
-    //     { message: '参数校验失败', errors: errors },
-    //     HttpStatus.BAD_REQUEST,
-    //   )
-    // }
-    const res = await this.couponRepository.findByCode('45678912')
-    return res
+  @UseGuards(JwtAuthGuard)
+  async createCoupon(@Req() request, @Body() couponDto: Coupon): Promise<any> {
+    const coupon = plainToClass(Coupon, couponDto)
+    const errors = await validate(coupon)
+    if (errors.length > 0) {
+      throw new HttpException({ message: '参数校验失败', errors: errors }, HttpStatus.BAD_REQUEST)
+    }
+    const userId = request.user.userId
+    const res = await this.couponRepository.addByUserId(userId, couponDto)
+    return {
+      code: 0,
+      data: res.raw?.affectedRows || 0,
+      msg: 'success'
+    }
   }
 }

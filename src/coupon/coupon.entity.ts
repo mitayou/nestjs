@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
-import { IsNotEmpty, IsString, Length } from 'class-validator'
+import { IsEmpty, IsNotEmpty, IsString, Length } from 'class-validator'
 import { v4 as uuidv4 } from 'uuid'
 
 @Entity('coupon')
@@ -14,6 +14,11 @@ export class Coupon {
   @IsString()
   // 自动生成唯一的 UUID
   codeId: string = uuidv4().replace(/-/g, '').substring(0, 16)
+
+  /** 用户ID */
+  @Column({ length: 20, comment: '用户ID' })
+  @IsString()
+  userNo: string
 
   /** 券码 */
   @Column({ length: 20, comment: '卡券券码' })
@@ -34,8 +39,16 @@ export class Coupon {
     default: () => 'CURRENT_TIMESTAMP',
     comment: '卡券创建时间'
   })
-  @IsNotEmpty()
+  @IsEmpty()
   createdAt: Date
+
+  /** 申请时间 */
+  @Column({ type: 'timestamp', comment: '卡券申请时间' })
+  getAt: Date
+
+  /** 生效时间 */
+  @Column({ type: 'timestamp', comment: '卡券生效时间' })
+  startAt: Date
 
   /** 到期时间 */
   @Column({ type: 'timestamp', comment: '卡券到期时间' })

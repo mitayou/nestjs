@@ -9,7 +9,7 @@ export class AuthService {
   login(userName: string, password: string) {
     this.logger.log('用户登录1', userName, password)
 
-    return this.jwtService.sign({ userName })
+    return this.jwtService.sign({ userId: userName })
   }
   checkLogin(userName: string, password: string) {
     this.logger.log('check 方法进入', userName, password)
