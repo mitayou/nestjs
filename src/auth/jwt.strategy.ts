@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @returns
    */
   async validate(payload: any) {
-    this.logger.log('validate 函数进入', payload)
+    // this.logger.log('validate 函数进入', payload)
     return payload
   }
 }
