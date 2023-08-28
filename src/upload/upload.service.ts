@@ -7,7 +7,12 @@ const UPLOAD_BASE_PATH = 'uploads'
 
 @Injectable()
 export class UploadService {
-  uploadMultiple(files: Array<Express.Multer.File>) {
+  /**
+   * 将文件列表保存到指定目录，按照树状图保存
+   * @param files 文件列表
+   * @returns 文件路径列表
+   */
+  uploadMultiple(files: Array<Express.Multer.File>): Promise<string[]> {
     // 保存文件并保留文件夹路径
     if (!files.length) {
       return
@@ -21,7 +26,12 @@ export class UploadService {
     }
     return Promise.all(pList)
   }
-  saveFile(file: Express.Multer.File) {
+  /**
+   * 根据文件信息将文件保存到指定目录
+   * @param file 文件信息
+   * @returns 路径
+   */
+  saveFile(file: Express.Multer.File): Promise<string> {
     return new Promise((resolve, reject) => {
       // 创建目录（如果不存在）
       const targetPath = path.join(ASSETS_BASE_PATH, UPLOAD_BASE_PATH, file.fieldname)
