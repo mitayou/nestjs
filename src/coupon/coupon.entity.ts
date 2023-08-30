@@ -8,6 +8,12 @@ export class Coupon {
   @PrimaryGeneratedColumn()
   id: number
 
+  /** 券父ID */
+  @Column({ length: 20, comment: '卡券父Id' })
+  @IsString()
+  // 券ID关联的父ID
+  pId: string
+
   /** 券ID */
   @Column({ length: 20, unique: true, comment: '卡券Id, 唯一键' })
   @IsNotEmpty()

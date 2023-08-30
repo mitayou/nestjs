@@ -8,7 +8,8 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CouponModule } from './coupon/coupon.module'
 import { AuthModule } from './auth/auth.module'
-import { UploadModule } from './upload/upload.module';
+import { UploadModule } from './upload/upload.module'
+import { SyncCouponModule } from './sync-coupon/sync-coupon.module'
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const envFilePath = join(__dirname, `../env/.env.${NODE_ENV}`)
@@ -27,7 +28,8 @@ console.log('执行环境', NODE_ENV, '环境配置文件', envFilePath)
     }),
     CouponModule,
     AuthModule,
-    UploadModule
+    UploadModule,
+    SyncCouponModule
   ],
   controllers: [AppController],
   providers: [AppService]
