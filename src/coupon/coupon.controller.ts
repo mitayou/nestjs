@@ -1,6 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, UseFilters, UseGuards } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Body, Controller, HttpException, HttpStatus, Post, Req, UseFilters, UseGuards } from '@nestjs/common'
 import { plainToClass } from 'class-transformer'
 import { validate } from 'class-validator'
 import { Coupon } from './coupon.entity'
@@ -12,11 +10,12 @@ import { JwtUnauthorizedExceptionFilter } from '@/common/filters/jwt-unauthorize
 @UseFilters(JwtUnauthorizedExceptionFilter)
 export class CouponController {
   constructor(private couponRepository: CouponRepository) {}
-  @Get('/getCouponList')
+  @Post('/getCouponList')
   @UseGuards(JwtAuthGuard)
-  async getCoupons(@Req() request) {
+  async getCoupons(@Req() request, @Body('current') current = 1, @Body('size') size = 10) {
     const userId = request.user.userId
-    const res = await this.couponRepository.findByUserId(userId)
+    const res = await this.couponRepository.findByUserId({ userNo: userId, current, size })
+
     return {
       code: 0,
       data: res,

@@ -9,6 +9,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   controllers: [CouponController],
   // 添加CouponRepository到providers数组中
   providers: [CouponRepository],
-  exports: []
+  exports: [CouponRepository]
 })
 export class CouponModule {}
