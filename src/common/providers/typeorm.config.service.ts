@@ -16,6 +16,8 @@ export class TypeOrmDefaultConfigService implements TypeOrmOptionsFactory {
       password: this.configService.get('DB_PASSWORD'),
       database: this.configService.get('DB_NAME'),
       entities: [path.join(__dirname, '/../../**/*.entity{.ts,.js}')],
+      logging: 'all',
+      logger: process.env.NODE_ENV === 'production' ? 'simple-console' : 'advanced-console',
       synchronize: false
     }
   }
