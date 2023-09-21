@@ -3,7 +3,7 @@
 #### 1. 奖品列表
 
 地址：
-https://www.xiaoyusan.com/AwardRelease/getAwardReleaseList
+/AwardRelease/getAwardReleaseList
 
 返回数据示例
 
@@ -15,10 +15,10 @@ https://www.xiaoyusan.com/AwardRelease/getAwardReleaseList
 }
 ```
 
-#### 2. 奖品列表
+#### 2. 获取奖品详情
 
 地址：
-https://www.xiaoyusan.com/AwardRelease/getAwardReleaseDetail
+/AwardRelease/getAwardReleaseDetail
 
 返回数据示例
 
@@ -48,7 +48,7 @@ https://www.xiaoyusan.com/AwardRelease/getAwardReleaseDetail
 #### 3. 奖品详情（兑换码）
 
 地址：
-https://www.xiaoyusan.com/AwardRelease/getAwardReleaseDetail
+/AwardRelease/getAwardReleaseDetail
 
 返回数据示例
 
