@@ -1,98 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nest</title>
-  </head>
-  <body>
-    <input class="upload" type="file" webkitdirectory multiple />
 
-    <input type="button" value="上传" onclick="confirmBtn()" />
-    <script>
-      function confirmBtn() {
-        const uploadEle = document.querySelector('.upload')
-        if (!uploadEle.files.length) {
-          return
-        }
-        console.log([...uploadEle.files].map((item) => item.webkitRelativePath))
-        httpUpload([...uploadEle.files])
-      }
-      async function httpUpload(files) {
-        const formData = new FormData()
-        for (let index = 0; index < files.length; index++) {
-          const item = files[index]
-          const name = await new Blob([item.webkitRelativePath], {
-            type: 'text/plain;charset=UTF-8'
-          }).text()
-          formData.append(encodeURI(name), item)
-        }
-        formData.append('name', 'uploadTest')
-        const xhr = new XMLHttpRequest()
-        // xhr.setRequestHeader('Content-Type', 'multipart/form-data')
-        let previousBytesLoaded = 0
-        let previousTime = new Date().getTime()
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nest</title>
+  <style>
+    .drag-content {
+      height: 300px;
+      border: 2px dashed yellowgreen;
+    }
+  </style>
+</head>
 
-        xhr.upload.onprogress = function (event) {
-          if (event.lengthComputable) {
-            const currentBytesLoaded = event.loaded
-            const currentTime = new Date().getTime()
-            const totalBytes = event.total
+<body>
+  <div class="drag-content"></div>
+  <div class="drag-content2" draggable="true">666</div>
+  <input class="upload" type="file" webkitdirectory multiple />
 
-            const percentComplete = (currentBytesLoaded / totalBytes) * 100
+  <input class="btn-upload" type="button" value="上传" />
 
-            // 计算上传速度
-            const bytesUploaded = currentBytesLoaded - previousBytesLoaded
-            const timeElapsed = currentTime - previousTime
+  <script src="./js/upload.js"></script>
+</body>
 
-            const uploadSpeed = bytesUploaded / (timeElapsed / 1000) // 瞬时上传速度（字节/秒）
-            console.log(
-              '上传进度：' +
-                percentComplete.toFixed(2) +
-                '%  上传速度：' +
-                convertBytes(uploadSpeed) +
-                '/秒'
-            )
-            previousBytesLoaded = currentBytesLoaded
-            previousTime = currentTime
-          }
-        }
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            console.log(xhr.responseText)
-          }
-        }
-        xhr.open('POST', './upload/files')
-        xhr.send(formData)
-      }
-      /**
-       * 定义一个函数，接受一个数字参数 bytes，输出最大能表达的单位
-       * @param bytes 字节数
-       * @returns 直观数据大小
-       */
-      function convertBytes(bytes) {
-        // 定义一个数组，存储不同单位的名称
-        const units = ['B', 'KB', 'MB', 'GB']
-        // 定义一个变量，存储转换后的结果
-        let result = ''
-        // 定义一个变量，存储当前单位的索引
-        let index = 0
-        // 循环判断 bytes 是否大于等于 1024
-        while (bytes >= 1024) {
-          // 如果是，则将 bytes 除以 1024，并保留两位小数
-          bytes = (bytes / 1024).toFixed(2)
-          // 将索引加一，表示进入下一个单位
-          index++
-          // 如果索引超过了数组的长度，则跳出循环
-          if (index >= units.length) {
-            break
-          }
-        }
-        // 将 bytes 和对应的单位拼接成结果字符串
-        result = bytes + ' ' + units[index]
-        // 返回结果字符串
-        return result
-      }
-    </script>
-  </body>
 </html>
