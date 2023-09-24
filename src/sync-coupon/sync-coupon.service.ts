@@ -91,6 +91,9 @@ export class SyncCouponService {
           data: { data: codeData }
         } = await this.codeApi.getPrizeDetailOrCode<IPrizeCode>(underId)
 
+        if (!codeData.log[0].cards) {
+          continue
+        }
         const currentObj = Object.assign({}, this.mapDataLines.get(key))
         currentObj.codeId = codeData.log[0].cards.cardno + '_' + ++i
         currentObj.userNo = ''
