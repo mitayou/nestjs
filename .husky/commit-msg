@@ -26,12 +26,22 @@ DATE=`date "+%Y-%m-%d"`
 TIME=`date "+%H:%M:%S"`
 
 # Get the number of files changed and lines added/deleted
-FILES_CHANGED=`git diff --numstat HEAD~ | wc -l | tr -d '[:space:]'`
-LINES_ADDED=`git diff --numstat HEAD~ | awk '{s+=$1} END {print s}'`
-LINES_DELETED=`git diff --numstat HEAD~ | awk '{s+=$2} END {print s}'`
+# FILES_CHANGED=`git diff --numstat HEAD~ | wc -l | tr -d '[:space:]'`
+# LINES_ADDED=`git diff --numstat HEAD~ | awk '{s+=$1} END {print s}'`
+# LINES_DELETED=`git diff --numstat HEAD~ | awk '{s+=$2} END {print s}'`
+
+# Get the number of lines changed in this commit
+LINES_CHANGED=$(git diff --cached --shortstat | awk '{print $1}')
+
+# Get the number of lines added in this commit
+LINES_ADDED=$(git diff --cached --shortstat | awk '{print $4}')
+
+# Get the number of lines deleted in this commit
+LINES_DELETED=$(git diff --cached --shortstat | awk '{print $6}')
+
 
 # Create the commit message with all the information
-FINAL_MSG="$PREFIX\r\n\r\n$type($BRANCH_NAME): $COMMIT_MSG\r\n\r\n更改行数: $FILES_CHANGED\r\n增加行数: $LINES_ADDED\r\n删除行数: $LINES_DELETED\r\n\r\n日期: $DATE $TIME"
+FINAL_MSG="$PREFIX\r\n\r\n$type($BRANCH_NAME): $COMMIT_MSG\r\n\r\n更改行数: $LINES_CHANGED\r\n增加行数: $LINES_ADDED\r\n删除行数: $LINES_DELETED\r\n\r\n日期: $DATE $TIME"
 
 # Overwrite the commit message file with the final message
 echo "$FINAL_MSG" > $COMMIT_MSG_FILE

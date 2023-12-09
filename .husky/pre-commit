@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Format staged JavaScript files
+# vue-cli-service lint不支持单文件格式化 已废弃该方式
+# npx vue-cli-service lint --fix $(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(vue|js)$')
+
+# Add modified files to the commit
+# git diff --name-only --cached | grep -E '\.(vue|js)$' | xargs git add
